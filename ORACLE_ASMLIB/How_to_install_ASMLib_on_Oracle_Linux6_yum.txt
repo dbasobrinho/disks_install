@@ -1,0 +1,325 @@
+==============================================================================================================================================================
+https://rodrigosilvaesilva.com.br/2019/04/gpg-key-retrieval-failed-errno-14-could-not-open-read-file-etc-pki-rpm-gpg-rpm-gpg-key-oracle/
+==============================================================================================================================================================
+
+GPG key retrieval failed: [Errno 14] Could not open/read file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle  
+
+Erro ao instalar oracle-rdbms-server-11gR2-preinstall
+
+warning: rpmts_HdrFromFdno: Header V3 RSA/SHA256 Signature, key ID ec551f03: NOKEY
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+
+
+GPG key retrieval failed: [Errno 14] Could not open/read file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+1
+2
+3
+4
+5
+warning: rpmts_HdrFromFdno: Header V3 RSA/SHA256 Signature, key ID ec551f03: NOKEY
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+ 
+ 
+GPG key retrieval failed: [Errno 14] Could not open/read file:///etc/pki/rpm-gpg/RPM-GPG-KEY-oracle
+Acesse o diretório: cd /etc/yum.repos.d/
+
+Faça o Download:
+
+[root@bancora] wget https://public-yum.oracle.com/RPM-GPG-KEY-oracle-ol6 -O /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle --no-check-certificate
+1
+[root@bancora] wget https://public-yum.oracle.com/RPM-GPG-KEY-oracle-ol6 -O /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle --no-check-certificate
+[root@bancora yum.repos.d]# wget https://public-yum.oracle.com/RPM-GPG-KEY-oracle-ol6 -O /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle --no-check-certificate
+--2019-04-11 19:27:25--  https://public-yum.oracle.com/RPM-GPG-KEY-oracle-ol6
+Resolving public-yum.oracle.com... 23.195.64.183
+Connecting to public-yum.oracle.com|23.195.64.183|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1011 [text/plain]
+Saving to: “/etc/pki/rpm-gpg/RPM-GPG-KEY-oracle”
+
+100%[=============================================================================================>] 1,011       --.-K/s   in 0s
+
+2019-04-11 19:27:27 (253 MB/s) - “/etc/pki/rpm-gpg/RPM-GPG-KEY-oracle” saved [1011/1011]
+[root@bancora yum.repos.d]# wget https://public-yum.oracle.com/RPM-GPG-KEY-oracle-ol6 -O /etc/pki/rpm-gpg/RPM-GPG-KEY-oracle --no-check-certificate
+--2019-04-11 19:27:25--  https://public-yum.oracle.com/RPM-GPG-KEY-oracle-ol6
+Resolving public-yum.oracle.com... 23.195.64.183
+Connecting to public-yum.oracle.com|23.195.64.183|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1011 [text/plain]
+Saving to: “/etc/pki/rpm-gpg/RPM-GPG-KEY-oracle”
+ 
+100%[=============================================================================================>] 1,011       --.-K/s   in 0s
+ 
+2019-04-11 19:27:27 (253 MB/s) - “/etc/pki/rpm-gpg/RPM-GPG-KEY-oracle” saved [1011/1011]
+Resolvido!
+
+==============================================================================================================================================================
+https://rajat1205sharma.wordpress.com/2015/02/02/how-to-install-asmlib-on-oracle-linux-6/
+==============================================================================================================================================================
+
+There has been quite some changes regarding ASMLib RPM packages availability for Linux last year: these changes have been summarized in July 2012 Wim Coekaerts blog article conclusion.
+
+
+Recently I wanted to have a Oracle Linux 6 machine with ASMLib to test it with Oracle 11.2.0.3. I checked 11.2 Oracle documentation and also 12.1 documentation which could be maybe more up-to-date. Both documents still say that you need to “Download the oracleasm package corresponding to your kernel version”. However OTN has a specific page Oracle ASMLib Downloads for Oracle Linux 6. There is a new RPM package kmod-oracleasm that is no more kernel version specific.
+
+Here are the steps I have used to install ASMLib packages on Oracle Linux 6.3 64-bit (all steps have been run with ‘root’ account):
+
+[root@ol6elsa1 ~]# uname -a
+Linux ol6elsa1.localdomain 2.6.39-200.24.1.el6uek.x86_64 #1 SMP Sat Jun 23 02:39:07 EDT 2012 x86_64 x86_64 x86_64 GNU/Linux
+[root@ol6elsa1 ~]# cat /etc/oracle-release
+Oracle Linux Server release 6.3
+[root@ol6elsa1 ~]#
+Download Oracle public YUM server configuration file:
+
+# pwd
+/etc/yum.repos.d
+# wget https://public-yum.oracle.com/public-yum-ol6.repo
+Enable ol6_u3_base in public-yum-ol6.repo:
+
+[ol6_u3_base]
+name=Oracle Linux $releasever Update 3 installation media copy ($basearch)
+baseurl=http://public-yum.oracle.com/repo/OracleLinux/OL6/3/base/$basearch/
+gpgkey=http://public-yum.oracle.com/RPM-GPG-KEY-oracle-ol6
+gpgcheck=1
+enabled=1
+Install kmod-oracleasm package with YUM:
+
+# yum install kmod-oracleasm
+Loaded plugins: security
+Setting up Install Process
+Resolving Dependencies
+--> Running transaction check
+---> Package kmod-oracleasm.x86_64 0:2.0.6.rh1-2.el6 will be installed
+--> Processing Dependency: kernel(kmem_cache_alloc_trace) = 0x2044fa9e for package: kmod-oracleasm-2.0.6.rh1-2.el6.x86_64
+--> Processing Dependency: kernel >= 2.6.32-358.el6 for package: kmod-oracleasm-2.0.6.rh1-2.el6.x86_64
+--> Running transaction check
+---> Package kernel.x86_64 0:2.6.32-358.14.1.el6 will be installed
+--> Processing Dependency: kernel-firmware >= 2.6.32-358.14.1.el6 for package: kernel-2.6.32-358.14.1.el6.x86_64
+--> Running transaction check
+---> Package kernel-firmware.noarch 0:2.6.32-279.el6 will be updated
+---> Package kernel-firmware.noarch 0:2.6.32-358.14.1.el6 will be an update
+--> Processing Conflict: kernel-2.6.32-358.14.1.el6.x86_64 conflicts bfa-firmware  Restarting Dependency Resolution with new changes.
+--> Running transaction check
+---> Package bfa-firmware.noarch 0:3.0.2.2-1.el6 will be updated
+---> Package bfa-firmware.noarch 0:3.0.3.1-1.el6 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===================================================================================================================================
+ Package                          Arch                    Version                                Repository                   Size
+===================================================================================================================================
+Installing:
+ kmod-oracleasm                   x86_64                  2.0.6.rh1-2.el6                        ol6_latest                   34 k
+Updating:
+ bfa-firmware                     noarch                  3.0.3.1-1.el6                          ol6_latest                  723 k
+Installing for dependencies:
+ kernel                           x86_64                  2.6.32-358.14.1.el6                    ol6_latest                   26 M
+Updating for dependencies:
+ kernel-firmware                  noarch                  2.6.32-358.14.1.el6                    ol6_latest                   11 M
+
+Transaction Summary
+===================================================================================================================================
+Install       2 Package(s)
+Upgrade       2 Package(s)
+
+Total download size: 38 M
+Is this ok [y/N]: y
+Downloading Packages:
+(1/4): bfa-firmware-3.0.3.1-1.el6.noarch.rpm                                                                | 723 kB     00:02
+(2/4): kernel-2.6.32-358.14.1.el6.x86_64.rpm                                                                |  26 MB     01:11
+(3/4): kernel-firmware-2.6.32-358.14.1.el6.noarch.rpm                                                       |  11 MB     00:31
+(4/4): kmod-oracleasm-2.0.6.rh1-2.el6.x86_64.rpm                                                            |  34 kB     00:00
+-----------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                              361 kB/s |  38 MB     01:47
+Running rpm_check_debug
+Running Transaction Test
+Transaction Test Succeeded
+Running Transaction
+  Updating   : kernel-firmware-2.6.32-358.14.1.el6.noarch                                                                      1/6
+  Installing : kernel-2.6.32-358.14.1.el6.x86_64                                                                               2/6
+  Installing : kmod-oracleasm-2.0.6.rh1-2.el6.x86_64                                                                           3/6
+  Updating   : bfa-firmware-3.0.3.1-1.el6.noarch                                                                               4/6
+  Cleanup    : bfa-firmware-3.0.2.2-1.el6.noarch                                                                               5/6
+  Cleanup    : kernel-firmware-2.6.32-279.el6.noarch                                                                           6/6
+  Verifying  : kmod-oracleasm-2.0.6.rh1-2.el6.x86_64                                                                           1/6
+  Verifying  : kernel-firmware-2.6.32-358.14.1.el6.noarch                                                                      2/6
+  Verifying  : kernel-2.6.32-358.14.1.el6.x86_64                                                                               3/6
+  Verifying  : bfa-firmware-3.0.3.1-1.el6.noarch                                                                               4/6
+  Verifying  : kernel-firmware-2.6.32-279.el6.noarch                                                                           5/6
+  Verifying  : bfa-firmware-3.0.2.2-1.el6.noarch                                                                               6/6
+
+Installed:
+  kmod-oracleasm.x86_64 0:2.0.6.rh1-2.el6
+
+Dependency Installed:
+  kernel.x86_64 0:2.6.32-358.14.1.el6
+
+Updated:
+  bfa-firmware.noarch 0:3.0.3.1-1.el6
+
+Dependency Updated:
+  kernel-firmware.noarch 0:2.6.32-358.14.1.el6
+
+Complete!
+Install oracleasm-support package with YUM:
+
+# yum install oracleasm-support
+Loaded plugins: security
+Setting up Install Process
+Resolving Dependencies
+--> Running transaction check
+---> Package oracleasm-support.x86_64 0:2.1.8-1.el6 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===================================================================================================================================
+ Package                              Arch                      Version                        Repository                     Size
+===================================================================================================================================
+Installing:
+ oracleasm-support                    x86_64                    2.1.8-1.el6                    ol6_latest                     73 k
+
+Transaction Summary
+===================================================================================================================================
+Install       1 Package(s)
+
+Total download size: 73 k
+Installed size: 216 k
+Is this ok [y/N]: y
+Downloading Packages:
+oracleasm-support-2.1.8-1.el6.x86_64.rpm                                                                    |  73 kB     00:00
+Running rpm_check_debug
+Running Transaction Test
+Transaction Test Succeeded
+Running Transaction
+  Installing : oracleasm-support-2.1.8-1.el6.x86_64                                                                            1/1
+  Verifying  : oracleasm-support-2.1.8-1.el6.x86_64                                                                            1/1
+
+Installed:
+  oracleasm-support.x86_64 0:2.1.8-1.el6
+
+Complete!
+The oracleasmlib package cannot be downloaded from YUM repository:
+
+# yum install oracleasmlib
+Loaded plugins: security
+ol6_latest                                               | 1.4 kB     00:00
+ol6_u3_base                                              | 1.4 kB     00:00
+ol6_u3_base/primary                                      | 2.7 MB     00:07
+ol6_u3_base                                                           8452/8452
+Setting up Install Process
+No package oracleasmlib available.
+Error: Nothing to do
+#
+You have to download directly from OTN site and install it with rpm command:
+
+# rpm -iv oracleasmlib-2.0.4-1.el6.x86_64.rpm
+Preparing packages for installation...
+oracleasmlib-2.0.4-1.el6
+# rpm -q -i oracleasmlib
+Name        : oracleasmlib                 Relocations: (not relocatable)
+Version     : 2.0.4                             Vendor: Oracle Corporation
+Release     : 1.el6                         Build Date: Mon 26 Mar 2012 10:22:44 PM CEST
+Install Date: Wed 14 Aug 2013 07:42:23 PM CEST      Build Host: ca-build44.us.oracle.com
+Group       : System Environment/Kernel     Source RPM: oracleasmlib-2.0.4-1.el6.src.rpm
+Size        : 27192                            License: Oracle Corporation
+Signature   : RSA/8, Mon 26 Mar 2012 10:22:51 PM CEST, Key ID 72f97b74ec551f03
+Packager    : Joel Becker 
+URL         : http://oss.oracle.com/
+Summary     : The Oracle Automatic Storage Management library userspace code.
+Description :
+The Oracle userspace library for Oracle Automatic Storage Management
+#
+This installation can be tested with ASMLib configuration and ASM disk creation (assuming ‘oracle’ account and ‘dba’ group have already been created).
+
+First create 2 new devices /dev/sdb1 and /dev/sdc1 (using 2 unused disk devices/dev/sdb and dev/sdc) that you will need to create 2 new ASM disks:
+
+# fdisk /dev/sdb
+Device contains neither a valid DOS partition table, nor Sun, SGI or OSF disklabel
+Building a new DOS disklabel with disk identifier 0x588c3932.
+Changes will remain in memory only, until you decide to write them.
+After that, of course, the previous content won't be recoverable.
+
+Warning: invalid flag 0x0000 of partition table 4 will be corrected by w(rite)
+
+WARNING: DOS-compatible mode is deprecated. It's strongly recommended to
+         switch off the mode (command 'c') and change display units to
+         sectors (command 'u').
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 1
+First cylinder (1-1305, default 1):
+Using default value 1
+Last cylinder, +cylinders or +size{K,M,G} (1-1305, default 1305):
+Using default value 1305
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+# fdisk /dev/sdc
+Device contains neither a valid DOS partition table, nor Sun, SGI or OSF disklabel
+Building a new DOS disklabel with disk identifier 0xc8322e8f.
+Changes will remain in memory only, until you decide to write them.
+After that, of course, the previous content won't be recoverable.
+
+Warning: invalid flag 0x0000 of partition table 4 will be corrected by w(rite)
+
+WARNING: DOS-compatible mode is deprecated. It's strongly recommended to
+         switch off the mode (command 'c') and change display units to
+         sectors (command 'u').
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 1
+First cylinder (1-1305, default 1):
+Using default value 1
+Last cylinder, +cylinders or +size{K,M,G} (1-1305, default 1305):
+Using default value 1305
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+#
+Configure ASMLib:
+
+#/usr/sbin/oracleasm configure -i
+Configuring the Oracle ASM library driver.
+
+This will configure the on-boot properties of the Oracle ASM library
+driver.  The following questions will determine whether the driver is
+loaded on boot and what permissions it will have.  The current values
+will be shown in brackets ('[]').  Hitting  without typing an
+answer will keep that current value.  Ctrl-C will abort.
+
+Default user to own the driver interface []: oracle
+Default group to own the driver interface []: dba
+Start Oracle ASM library driver on boot (y/n) [n]: y
+Scan for Oracle ASM disks on boot (y/n) [y]: y
+Writing Oracle ASM library driver configuration: done
+# oracleasm init
+Creating /dev/oracleasm mount point: /dev/oracleasm
+Loading module "oracleasm": oracleasm
+Mounting ASMlib driver filesystem: /dev/oracleasm
+Create 2 ASM disks:
+
+# oracleasm createdisk ASM1 /dev/sdb1
+Writing disk header: done
+Instantiating disk: done
+# oracleasm createdisk ASM2 /dev/sdc1
+Writing disk header: done
+Instantiating disk: done
+# oracleasm listdisks
+ASM1
+ASM2
+#
